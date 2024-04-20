@@ -1,0 +1,50 @@
+本地订阅转换
+https://bulianglin.com/archives/51.html
+
+CFW自动添加负载均衡
+parsers:
+  - reg: 'slbable$'
+    yaml:
+      append-proxy-groups:
+        - name: ⚖️ 负载均衡-散列
+          type: load-balance
+          url: 'http://www.google.com/generate_204'
+          interval: 300
+          strategy: consistent-hashing
+        - name: ⚖️ 负载均衡-轮询
+          type: load-balance
+          url: 'http://www.google.com/generate_204'
+          interval: 300
+          strategy: round-robin
+      commands:
+        - proxy-groups.⚖️ 负载均衡-散列.proxies=[]proxyNames
+        - proxy-groups.0.proxies.0+⚖️ 负载均衡-散列
+        - proxy-groups.⚖️ 负载均衡-轮询.proxies=[]proxyNames
+        - proxy-groups.0.proxies.0+⚖️ 负载均衡-轮询
+YAML 复制
+手动添加负载均衡
+#添加到第一个代理策略组
+      - ⚖️ 负载均衡-轮询
+      - ⚖️ 负载均衡-散列
+
+#添加代理策略组
+  - name: ⚖️ 负载均衡-散列
+    type: load-balance
+    url: http://www.google.com/generate_204
+    interval: 300
+    strategy: consistent-hashing
+    proxies:
+      - P1
+      - P2
+      - P3
+  - name: ⚖️ 负载均衡-轮询
+    type: load-balance
+    url: http://www.google.com/generate_204
+    interval: 300
+    strategy: round-robin
+    proxies:
+      - P1
+      - P2
+      - P3
+YAML 复制
+ 最后修改：2022 年 11 月 10 日 09 : 41 AM
