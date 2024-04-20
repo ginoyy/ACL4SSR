@@ -1,6 +1,3 @@
-本地订阅转换
-https://bulianglin.com/archives/51.html
-
 CFW自动添加负载均衡
 parsers:
   - reg: 'slbable$'
@@ -46,5 +43,5 @@ YAML 复制
       - P1
       - P2
       - P3
-YAML 复制
- 最后修改：2022 年 11 月 10 日 09 : 41 AM
+//YAML 复制
+//在订阅链接后面加#slbable，选择预处理配置，确定。
